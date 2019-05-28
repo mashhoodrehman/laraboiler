@@ -17,7 +17,6 @@
                 @lang('menus.backend.sidebar.system')
             </li>
 
-            @if ($logged_in_user->isAdmin())
                 <li class="nav-item nav-dropdown {{
                     active_class(Active::checkUriPattern('admin/auth*'), 'open')
                 }}">
@@ -46,9 +45,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{
-                                active_class(Active::checkUriPattern('admin/auth/role*'))
-                            }}" href="{{ route('admin.auth.role.index') }}">
-                                @lang('labels.backend.access.roles.management')
+                                active_class(Active::checkUriPattern('admin/auth/user*'))
+                            }}" href="{{ route('admin.adds.index') }}">
+                                Adds Management
                             </a>
                         </li>
                     </ul>
@@ -82,7 +81,7 @@
                         </li>
                     </ul>
                 </li>
-            @endif
+                
         </ul>
     </nav>
 

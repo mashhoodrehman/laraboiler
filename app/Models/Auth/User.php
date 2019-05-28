@@ -16,4 +16,8 @@ class User extends BaseUser
         UserMethod,
         UserRelationship,
         UserScope;
+
+        public function getBrandUsers(){
+        	return $this->hasMany('App\Models\Auth\User' , 'parent_id' , 'id');
+        }
 }

@@ -74,6 +74,18 @@ trait UserAttribute
 
         return 'N/A';
     }
+    public function getRolesNameAttribute()
+    {
+        $roles = $this->getRoleNames()->toArray();
+
+        if (\count($roles)) {
+            return implode(', ', array_map(function ($item) {
+                return ucwords($item);
+            }, $roles));
+        }
+
+        return 'N/A';
+    }
 
     /**
      * @return string

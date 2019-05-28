@@ -14,7 +14,7 @@ Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
     'namespace' => 'Auth',
-    'middleware' => 'role:'.config('access.users.admin_role'),
+    'middleware' => 'role:executive',
 ], function () {
     // User Management
     Route::group(['namespace' => 'User'], function () {
@@ -65,15 +65,7 @@ Route::group([
     });
 
     // Role Management
-    Route::group(['namespace' => 'Role'], function () {
-        Route::get('role', [RoleController::class, 'index'])->name('role.index');
-        Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
-        Route::post('role', [RoleController::class, 'store'])->name('role.store');
-
-        Route::group(['prefix' => 'role/{role}'], function () {
-            Route::get('edit', [RoleController::class, 'edit'])->name('role.edit');
-            Route::patch('/', [RoleController::class, 'update'])->name('role.update');
-            Route::delete('/', [RoleController::class, 'destroy'])->name('role.destroy');
-        });
-    });
 });
+
+Route::get('adds/list', [AddsController::class, 'index'])->name('adds.index');
+

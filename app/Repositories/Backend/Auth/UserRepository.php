@@ -51,11 +51,26 @@ class UserRepository extends BaseRepository
      */
     public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
     {
+        if(\Auth::user()->isOwner()){
         return $this->model
             ->with('roles', 'permissions', 'providers')
             ->active()
             ->orderBy($orderBy, $sort)
-            ->paginate($paged);
+            ->where('parent_id' , \Auth::user()->id)
+            ->paginate($paged);    
+        }
+        else{
+        return $this->model
+            ->with('roles', 'permissions', 'providers')
+            ->whereHas('roles' , function($q){
+                $q->where('name' , 'executive');
+            })
+            ->active()
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);    
+        }
+        
+
     }
 
     /**
@@ -114,22 +129,26 @@ class UserRepository extends BaseRepository
             if (! isset($data['permissions']) || ! count($data['permissions'])) {
                 $data['permissions'] = [];
             }
-
-            if ($user) {
-                // User must have at least one role
-                if (! count($data['roles'])) {
-                    throw new GeneralException(__('exceptions.backend.access.users.role_needed_create'));
+            if(\Auth::user()->isAdmin()){
+                    $data['roles'] = 2;
                 }
+                if(\Auth::user()->isOwner()){
+                    $data['roles'] = 3;
+                }
+             
+            if ($user) {
 
                 // Add selected roles/permissions
                 $user->syncRoles($data['roles']);
                 $user->syncPermissions($data['permissions']);
-
                 //Send confirmation email if requested and account approval is off
                 if ($user->confirmed === false && isset($data['confirmation_email']) && ! config('access.users.requires_approval')) {
                     $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
-
+                if(\Auth::user()->isOwner()){
+                    $user->parent_id = \Auth::user()->id;
+                    $user->save();
+                }
                 event(new UserCreated($user));
 
                 return $user;

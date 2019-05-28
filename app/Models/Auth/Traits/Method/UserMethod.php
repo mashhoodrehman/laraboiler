@@ -76,6 +76,11 @@ trait UserMethod
         return $this->hasRole(config('access.users.admin_role'));
     }
 
+    public function isOwner()
+    {
+        return $this->hasRole('executive');
+    }
+
     /**
      * @return bool
      */

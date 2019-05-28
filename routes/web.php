@@ -7,6 +7,10 @@ use App\Http\Controllers\LanguageController;
  * Routes that are used between both frontend and backend.
  */
 
+
+Route::get('get-campain' , 'LanguageController@getCampain');
+
+
 // Switch between the included languages
 Route::get('lang/{lang}', [LanguageController::class, 'swap']);
 
