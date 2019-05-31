@@ -14,7 +14,7 @@ Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
     'namespace' => 'Auth',
-    'middleware' => 'role:executive',
+    'middleware' => 'role:executive|administrator',
 ], function () {
     // User Management
     Route::group(['namespace' => 'User'], function () {
