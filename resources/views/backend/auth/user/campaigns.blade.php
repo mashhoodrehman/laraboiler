@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-sm-5">
                     <h4 class="card-title mb-0">
-                        @lang('labels.backend.access.users.management')
+                        Campaigns 
                         <small class="text-muted">@lang('labels.backend.access.users.view')</small>
                     </h4>
                 </div><!--col-->
