@@ -51,6 +51,9 @@ class User extends BaseUser implements JWTSubject
         return $this->attributes['client_customer_id'];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
     public function getParentAttribute()
     {
         return User::query( )->where('id',  $this->attributes['parent_id'] )->first();

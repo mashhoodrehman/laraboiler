@@ -36,9 +36,6 @@ class GoogleClient
             ->withOAuth2Credential($oAuth2Credential)
             ->withClientCustomerId($clientCustomerId)->build();
 
-
-
-
     }
 
     public function getCampaigns()

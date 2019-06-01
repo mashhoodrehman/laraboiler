@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Auth\User;
 
+use App\Helpers\Google\GoogleClient;
 use App\Models\Auth\User;
 use App\Http\Controllers\Controller;
 use App\Events\Backend\Auth\User\UserDeleted;
@@ -147,5 +148,15 @@ class UserController extends Controller
         event(new UserDeleted($user));
 
         return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.users.deleted'));
+    }
+
+    public function getCampaign(User $user)
+    {
+        $client = new GoogleClient($user->client_customer_id);
+
+        $campaigns = $client->getCampaigns();
+
+        return view('backend.auth.user.campaigns')
+            ->with('campaigns', $campaigns);
     }
 }

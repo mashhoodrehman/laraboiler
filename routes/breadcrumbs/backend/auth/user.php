@@ -30,6 +30,11 @@ Breadcrumbs::for('admin.auth.user.edit', function ($trail, $id) {
     $trail->push(__('menus.backend.access.users.edit'), route('admin.auth.user.edit', $id));
 });
 
+Breadcrumbs::for('admin.auth.user.campaigns', function ($trail, $id) {
+    $trail->parent('admin.auth.user.index');
+    $trail->push('Campaigns' , route('admin.auth.user.campaigns', $id));
+});
+
 Breadcrumbs::for('admin.auth.user.change-password', function ($trail, $id) {
     $trail->parent('admin.auth.user.index');
     $trail->push(__('menus.backend.access.users.change-password'), route('admin.auth.user.change-password', $id));

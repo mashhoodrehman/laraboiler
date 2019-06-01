@@ -293,7 +293,12 @@ trait UserAttribute
         return '
     	<div class="btn-group" role="group" aria-label="'.__('labels.backend.access.users.user_actions').'">
 		  '.$this->show_button.'
-		  '.$this->edit_button.'
+		  '.$this->edit_button.
+
+
+            '<a href="'.route('admin.auth.user.campaigns', $this).'" data-toggle="tooltip" data-placement="top" title= "" class="btn btn-primary"><i class="fas fa-circle"></i></a>'
+            .'
+		  
 
 		  <div class="btn-group btn-group-sm" role="group">
 			<button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
