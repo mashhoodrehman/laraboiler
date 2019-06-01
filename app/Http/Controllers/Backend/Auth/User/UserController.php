@@ -73,6 +73,7 @@ class UserController extends Controller
             'active',
             'confirmed',
             'confirmation_email',
+            'client_customer_id',
             'roles',
             'permissions'
         ));
@@ -123,6 +124,7 @@ class UserController extends Controller
         $this->userRepository->update($user, $request->only(
             'first_name',
             'last_name',
+            'client_customer_id',
             'email',
             'roles',
             'permissions'

@@ -19,11 +19,11 @@ class User extends BaseUser implements JWTSubject
         UserRelationship,
         UserScope;
 
-        public function getBrandUsers(){
-        	return $this->hasMany('App\Models\Auth\User' , 'parent_id' , 'id');
-        }
+    public function getBrandUsers(){
+        return $this->hasMany('App\Models\Auth\User' , 'parent_id' , 'id');
+    }
 
-         public function getJWTIdentifier()
+    public function getJWTIdentifier()
     {
         return $this->getKey();
     }
@@ -37,4 +37,23 @@ class User extends BaseUser implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    public function getClientCustomerIdAttribute()
+    {
+        if ($this->attributes['parent_id'] != null){
+
+            return $this->parent->client_customer_id;
+        }
+
+        return $this->attributes['client_customer_id'];
+    }
+
+    public function getParentAttribute()
+    {
+        return User::query( )->where('id',  $this->attributes['parent_id'] )->first();
+    }
+
 }

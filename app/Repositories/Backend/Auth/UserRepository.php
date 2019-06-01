@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository
             ->active()
             ->orderBy($orderBy, $sort)
             ->where('parent_id' , \Auth::user()->id)
-            ->paginate($paged);    
+            ->paginate($paged);
         }
         else{
         return $this->model
@@ -67,9 +67,9 @@ class UserRepository extends BaseRepository
             })
             ->active()
             ->orderBy($orderBy, $sort)
-            ->paginate($paged);    
+            ->paginate($paged);
         }
-        
+
 
     }
 
@@ -120,6 +120,7 @@ class UserRepository extends BaseRepository
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'password' => $data['password'],
+                'client_customer_id' => $data['client_customer_id'],
                 'active' => isset($data['active']) && $data['active'] === '1',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed' => isset($data['confirmed']) && $data['confirmed'] === '1',
@@ -135,7 +136,7 @@ class UserRepository extends BaseRepository
                 if(\Auth::user()->isOwner()){
                     $data['roles'] = 3;
                 }
-             
+
             if ($user) {
 
                 // Add selected roles/permissions
@@ -181,6 +182,7 @@ class UserRepository extends BaseRepository
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
+                'client_customer_id' => $data['client_customer_id'],
             ])) {
                 // Add selected roles/permissions
                 $user->syncRoles($data['roles']);

@@ -59,6 +59,18 @@
                         </div><!--col-->
                     </div><!--form-group-->
 
+
+                    <div class="form-group row">
+                        {{ html()->label('client Customer ID')->class('col-md-2 form-control-label')->for('client_customer_id') }}
+
+                        <div class="col-md-10">
+                            {{ html()->text('client_customer_id')
+                                ->class('form-control')
+                                ->placeholder('Client Customer ID')
+                                ->required() }}
+                        </div><!--col-->
+                    </div><!--form-group-->
+
                     <div class="form-group row">
                         {{ html()->label('Abilities')->class('col-md-2 form-control-label') }}
 

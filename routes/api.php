@@ -17,9 +17,19 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 
-    Route::post('login', 'AuthController@login');
-    Route::get('get-compains', 'AuthController@getcompains');
-    Route::get('status-compains/{id}/{status}', 'AuthController@statusCompain');
+
+
+Route::group([
+
+    'middleware' => 'auth:api',
+], function ($router) {
+
+
+    Route::get('campaigns', 'CampaignController@getCampaigns');
+});
+Route::post('login', 'AuthController@login');
+Route::get('get-compains', 'AuthController@getcompains');
+Route::get('status-compains/{id}/{status}', 'AuthController@statusCompain');
 
 Route::group([
 
