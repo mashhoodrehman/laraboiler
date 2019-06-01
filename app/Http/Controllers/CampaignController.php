@@ -27,7 +27,7 @@ class CampaignController extends Controller
     {
         $user =  $request->user('api');
 
-        $googleClient  = new GoogleClient('208-036-0101');
+        $googleClient  = new GoogleClient($user->client_customer_id);
         $googleClient->changeStatus();
 
     }

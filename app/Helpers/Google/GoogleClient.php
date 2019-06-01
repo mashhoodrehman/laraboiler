@@ -35,8 +35,7 @@ class GoogleClient
             ->fromFile(storage_path('app/adsapi_php.ini'))
             ->withOAuth2Credential($oAuth2Credential)
             ->withClientCustomerId($clientCustomerId)->build();
-//            ->withClientCustomerId('208-036-0101')
-        ;
+
 
 
 
@@ -73,7 +72,7 @@ class GoogleClient
                     $result[]=array(
                         'id'=>$campaign->getId(),
                         'name'=>$campaign->getName(),
-                        'status'=> $this->statusCasts[$campaign->getStatus()],
+                        'status'=> self::statusParser($campaign->getStatus()),
                         'actual_status'=> $campaign->getStatus(),
 
                     );
@@ -91,8 +90,18 @@ class GoogleClient
     }
 
 
+    public static  function statusParser($status)
+    {
+        if ($status == 'ENABLED'){
+            return true;
+        }
+        else{
+            return false;
+        }
 
-    public function changeStatus()
+    }
+
+    public function changeStatus( $addId , $status  )
     {
 
         $session = $this->googleAuthSession;
@@ -104,7 +113,10 @@ class GoogleClient
         $operations = [];
         // Create a campaign with PAUSED status.
         $campaign = new Campaign();
-        $campaign->setId('1974884133');
+        $campaign->setId($addId );
+
+
+
         $campaign->setStatus(CampaignStatus::PAUSED);
 
         // Create a campaign operation and add it to the list.
