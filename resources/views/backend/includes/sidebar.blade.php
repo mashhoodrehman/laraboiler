@@ -43,13 +43,7 @@
                                 @endif
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{
-                                active_class(Active::checkUriPattern('admin/auth/user*'))
-                            }}" href="{{ route('admin.adds.index') }}">
-                                Adds Management
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 
@@ -81,7 +75,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
         </ul>
     </nav>
 
