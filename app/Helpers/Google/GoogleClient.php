@@ -28,11 +28,11 @@ class GoogleClient
     public function __construct($clientCustomerId)
     {
         $oAuth2Credential = (new OAuth2TokenBuilder())
-            ->fromFile(storage_path('app/adsapi_php.ini'))
+            ->fromFile(storage_path('adsapi_php.ini'))
             ->build();
 
         $this->googleAuthSession = (new AdWordsSessionBuilder())
-            ->fromFile(storage_path('app/adsapi_php.ini'))
+            ->fromFile(storage_path('adsapi_php.ini'))
             ->withOAuth2Credential($oAuth2Credential)
             ->withClientCustomerId($clientCustomerId)->build();
 

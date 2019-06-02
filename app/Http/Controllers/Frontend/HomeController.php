@@ -34,11 +34,12 @@ class HomeController extends Controller
 //            ->withClientCustomerId('208-036-0101')
 //            ->build();
 
-        $googleClient = new GoogleClient('208-036-0101');
-
-        $campaigns=  $googleClient->getCampaigns();
-
-        dd($campaigns);
+//        $googleClient = new GoogleClient('208-036-0101');
+//
+//        $campaigns=  $googleClient->getCampaigns();
+//
+//
+//        dd($campaigns);
 
 //        $adWordsServices = new AdWordsServices();
 //
