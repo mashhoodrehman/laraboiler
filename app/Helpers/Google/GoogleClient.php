@@ -60,11 +60,11 @@ class GoogleClient
             if ($page->getEntries() !== null) {
                 $totalNumEntries = $page->getTotalNumEntries();
                 foreach ($page->getEntries() as $campaign) {
-                    printf(
-                        "Campaign with ID %d and name '%s' was found.\n",
-                        $campaign->getId(),
-                        $campaign->getName()
-                    );
+//                    printf(
+//                        "Campaign with ID %d and name '%s' was found.\n",
+//                        $campaign->getId(),
+//                        $campaign->getName()
+//                    );
 
                     $result[]=array(
                         'id'=>$campaign->getId(),
