@@ -23,11 +23,11 @@ class CampaignController extends Controller
 
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus(Request $request , $id , $status)
     {
         $user =  $request->user('api');
         $googleClient  = new GoogleClient($user->client_customer_id);
-        $googleClient->changeStatus();
+        $googleClient->changeStatus($id , $status);
 
     }
 }

@@ -113,9 +113,12 @@ class GoogleClient
         $campaign->setId($addId );
 
 
-
+        if($status == "on"){
         $campaign->setStatus(CampaignStatus::PAUSED);
-
+        }
+        else{
+         $campaign->setStatus(CampaignStatus::ENABLED);   
+        }
         // Create a campaign operation and add it to the list.
         $operation = new CampaignOperation();
         $operation->setOperand($campaign);
