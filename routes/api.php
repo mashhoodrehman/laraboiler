@@ -23,8 +23,6 @@ Route::group([
 
     'middleware' => 'auth:api',
 ], function ($router) {
-
-
     Route::get('campaigns', 'CampaignController@getCampaigns');
 });
 Route::post('login', 'AuthController@login');
