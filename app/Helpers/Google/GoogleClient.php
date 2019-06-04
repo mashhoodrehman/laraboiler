@@ -113,7 +113,7 @@ class GoogleClient
         $campaign->setId($addId );
 
 
-        if($status == "on"){
+        if($status == "off"){
         $campaign->setStatus(CampaignStatus::PAUSED);
         return true;
         }
