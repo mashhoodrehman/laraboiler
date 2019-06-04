@@ -119,7 +119,7 @@ class GoogleClient
         }
         else{
          $campaign->setStatus(CampaignStatus::ENABLED);
-         return false;   
+         return true;   
         }
         // Create a campaign operation and add it to the list.
         $operation = new CampaignOperation();

@@ -28,6 +28,7 @@ class CampaignController extends Controller
         $user =  $request->user('api');
         $googleClient  = new GoogleClient($user->client_customer_id);
         $googleClient->changeStatus($id , $status);
+        return response()->json('successful');
 
     }
 }
