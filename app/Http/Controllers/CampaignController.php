@@ -20,6 +20,7 @@ class CampaignController extends Controller
         if (! $user = JWTAuth::parseToken()->authenticate()) {
                                     return response()->json(['message' =>'user_not_found' , 'code' => 404]);
                             }
+                            return response()->json($user);
 
         $googleClient  = new GoogleClient($user->client_customer_id);
         $data  =$googleClient->getCampaigns();
