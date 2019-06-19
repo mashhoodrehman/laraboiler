@@ -1,143 +1,145 @@
 @extends('frontend.layouts.app')
 
-@section('title', app_name() . ' | ' . __('navs.frontend.dashboard') )
+`
 
 @section('content')
-    <div class="row mb-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        <i class="fas fa-tachometer-alt"></i> @lang('navs.frontend.dashboard')
-                    </strong>
-                </div><!--card-header-->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h4 class="card-title mb-0">
+                        Adds Management
+                    </h4>
+                </div><!--col-->
 
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col col-sm-4 order-1 order-sm-2  mb-4">
-                            <div class="card mb-4 bg-light">
-                                <img class="card-img-top" src="{{ $logged_in_user->picture }}" alt="Profile Picture">
+                <div class="col-md-7">
+                    <p>Pause Adds: <button type="button" class="btn btn-primary" id="frm-example" data-dismiss="modal">Pause Adds</button></p>
 
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        {{ $logged_in_user->name }}<br/>
-                                    </h4>
+                    <p>Enable Adds: <button type="button" class="btn btn-primary" id="enable-adds" data-dismiss="modal">Enable Adds</button></p>
 
-                                    <p class="card-text">
-                                        <small>
-                                            <i class="fas fa-envelope"></i> {{ $logged_in_user->email }}<br/>
-                                            <i class="fas fa-calendar-check"></i> @lang('strings.frontend.general.joined') {{ timezone()->convertToLocal($logged_in_user->created_at, 'F jS, Y') }}
-                                        </small>
-                                    </p>
+                </div><!--col-->
+            </div><!--row-->
 
-                                    <p class="card-text">
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table" id="myTable">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Campain Id</th>
+                                <th>Campain Name</th>
+                                <th>Label</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($data as $add)
+                                <tr>
+                                    <td>{{$add['id']}}}}</td>
+                                    <td>{{ $add['id']}}</td>
+                                    <td>{{ $add['name']}}</td>
+                                    <td>{{ isset($add['label'][0]) ? $add['label'][0]['label'] : 'N/A'}}</td>
+                                    <td>{{$add['actual_status']}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--col-->
+            </div><!--row-->
+            <div class="row">
+                <div class="col-7">
 
-                                        <a href="{{ route('frontend.user.account')}}" class="btn btn-info btn-sm mb-1">
-                                            <i class="fas fa-user-circle"></i> @lang('navs.frontend.user.account')
-                                        </a>
+                </div><!--col-->
 
-                                        @can('view backend')
-                                            &nbsp;<a href="{{ route('admin.dashboard')}}" class="btn btn-danger btn-sm mb-1">
-                                                <i class="fas fa-user-secret"></i> @lang('navs.frontend.user.administration')
-                                            </a>
-                                        @endcan
-                                    </p>
-                                </div>
-                            </div>
+                <div class="col-5">
+                    <div class="float-right">
 
-                            <div class="card mb-4">
-                                <div class="card-header">Header</div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Info card title</h4>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div><!--card-->
-                        </div><!--col-md-4-->
+                    </div>
+                </div><!--col-->
+            </div><!--row-->
+        </div><!--card-body-->
+    </div><!--card-->
 
-                        <div class="col-md-8 order-2 order-sm-1">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
+    @push('after-scripts')
+        <script>
+            var oTable= '';
+        $(document).ready( function () {
 
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
+         oTable = $('#myTable').DataTable({
+            columnDefs: [         // see https://datatables.net/reference/option/columns.searchable
+                {
+                    searchable    : false,
+                    targets       : [0,1,2 , 4]
+                },
+                {
+                    'checkboxes': {
+                        'selectRow': true
+                    },
+                    targets       : 0
+                },
+            ],
+            'select': {
+                'style': 'multi'
+            },
+        });
+        } );
+        $('#enable-adds').on('click', function(e) {
+            var form = this;
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
+            var rows_selected = oTable.column(0).checkboxes.selected();
 
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
+            // Iterate over all selected checkboxes
+            var rowsId = [];
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                rowsId.push(rowId);
+                console.log(index, 'index', rowId, 'rowId')
+            });
+            if (rowsId === undefined || rowsId.length == 0) {
+                alert('kindly select rows')
+            }
+            let routeurl = "{{route('change.campain.userpause')}}";
+            $.ajax({
+                method: 'POST',
+                url: routeurl,
+                data: { "_token": "{{ csrf_token() }}",id: rowsId }
+            })
+                .done(function (data){
+                    location.reload()
+                    console.log(data)
+                })
+        });
+            $('#frm-example').on('click', function(e) {
+                var form = this;
 
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
+                var rows_selected = oTable.column(0).checkboxes.selected();
 
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
 
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
+                // Iterate over all selected checkboxes
+                var rowsId = [];
+                $.each(rows_selected, function (index, rowId) {
+                    // Create a hidden element
+                    rowsId.push(rowId);
+                    console.log(index, 'index', rowId, 'rowId')
+                });
+                if (rowsId === undefined || rowsId.length == 0) {
+                    alert('kindly select rows')
+                }
+                let routeurl = "{{route('change.campain.userenab')}}";
+                $.ajax({
+                    method: 'POST',
+                    url: routeurl,
+                    data: { "_token": "{{ csrf_token() }}",id: rowsId }
+                })
+                    .done(function (data){
+                        location.reload()
+                        console.log(data)
+                    })
+            });
+        </script>
+    @endpush
 
-                                <div class="w-100"></div>
-
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
-
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-
-                                <div class="col">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            Item
-                                        </div><!--card-header-->
-
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
-                        </div><!--col-md-8-->
-                    </div><!-- row -->
-                </div> <!-- card-body -->
-            </div><!-- card -->
-        </div><!-- row -->
-    </div><!-- row -->
 @endsection

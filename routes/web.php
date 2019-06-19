@@ -8,6 +8,27 @@ use App\Http\Controllers\LanguageController;
  */
 
 
+Route::get('test' , function(){
+    // $user =  $request->user('api');
+    $user = App\Models\Auth\User::find(1);
+        $googleClient  = new App\Helpers\Google\GoogleClient('208-036-0101');
+        $data  =$googleClient->getCampaigns();
+        $label = [];
+        $id = array();
+        foreach ($data as $d){
+            if(in_array($d['label'][0]['id'] , $id)){
+                continue;
+            }
+            $id[] = $d['label'][0]['id'];
+            $label[] = $d['label'][0];
+        }
+        return response()->json($label);
+    });
+
+
+    Route::post('change-campainst' , 'CampaignController@statusCampains')->name('change.campain.userpause' );
+Route::post('change-campainst-enab' , 'CampaignController@statusCampainsEnab')->name('change.campain.userenab' );
+
 Route::get('get-campain' , 'LanguageController@getCampain');
 
 

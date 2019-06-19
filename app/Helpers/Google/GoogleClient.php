@@ -47,7 +47,7 @@ class GoogleClient
         $campaignService = $adWordsServices->get($session, CampaignService::class);
 
         $selector = new Selector();
-        $selector->setFields(array('Id', 'Name', 'Status'));
+        $selector->setFields(array('Id', 'Name', 'Status','Labels'));
         $selector->setOrdering(array(new OrderBy('Name', 'ASCENDING')));
         $selector->setPaging(new Paging(0, 100));
 
@@ -69,6 +69,13 @@ class GoogleClient
                     $result[]=array(
                         'id'=>$campaign->getId(),
                         'name'=>$campaign->getName(),
+                        'label'=>
+                            array_map(
+                                function ($label) {
+                                    return ['label' => $label->getName() , 'id' => $label->getId()];
+                                },
+                                $campaign->getLabels()
+                        ),
                         'status'=> self::statusParser($campaign->getStatus()),
                         'actual_status'=> $campaign->getStatus(),
 
@@ -81,7 +88,6 @@ class GoogleClient
                 $selector->getPaging()->getStartIndex() + 500
             );
         } while ($selector->getPaging()->getStartIndex() < $totalNumEntries);
-
         return $result;
 
     }
