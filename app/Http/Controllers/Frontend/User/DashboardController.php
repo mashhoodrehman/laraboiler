@@ -20,6 +20,7 @@ class DashboardController extends Controller
 
        $user = Auth::user();
         $googleClient  = new GoogleClient($user->client_customer_id);
+        
         $data  =$googleClient->getCampaigns();
         return view('frontend.user.dashboard' , compact('data') );
     }

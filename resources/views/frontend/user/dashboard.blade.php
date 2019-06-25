@@ -33,7 +33,7 @@
                             <tbody>
                             @foreach($data as $add)
                                 <tr>
-                                    <td>{{$add['id']}}}}</td>
+                                    <td>{{$add['id']}}</td>
                                     <td>{{ $add['id']}}</td>
                                     <td>{{ $add['name']}}</td>
                                     <td>{{ isset($add['label'][0]) ? $add['label'][0]['label'] : 'N/A'}}</td>
@@ -60,6 +60,9 @@
     </div><!--card-->
 
     @push('after-scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
+
         <script>
             var oTable= '';
         $(document).ready( function () {
