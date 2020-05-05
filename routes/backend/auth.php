@@ -65,8 +65,12 @@ Route::group([
         });
     });
 
+   
+
     // Role Management
 });
-
+ // SMS User
+        Route::get('sms-user/index' , 'SmsUserController@index')->name('smsuser.index');
+        Route::get('sms-user/create' , 'SmsUserController@create')->name('smsuser.create');
 Route::get('adds/list', [AddsController::class, 'index'])->name('adds.index');
 

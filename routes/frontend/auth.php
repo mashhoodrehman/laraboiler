@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         // Password expired routes
         Route::get('password/expired', [PasswordExpiredController::class, 'expired'])->name('password.expired');
         Route::patch('password/expired', [PasswordExpiredController::class, 'update'])->name('password.expired.update');
+
+        
     });
 
     // These routes require no user to be logged in
